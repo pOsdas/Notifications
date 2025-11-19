@@ -1,15 +1,21 @@
 from pathlib import Path
 import logging
+import os
 import logging.config
 import environ
 from app.config import pydantic_settings
 
-env = environ.Env()
-
-DOCKER = env.bool("DOCKER", False)
 
 # Корневая директория проекта
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+
+env.read_env(
+    os.path.join(BASE_DIR, '.env')
+)
+
+DOCKER = env.bool("DOCKER", False)
 
 # Основные настройки
 SECRET_KEY = pydantic_settings.secret_key
@@ -31,11 +37,12 @@ DATABASES = {
 # DATABASES["default"]["ENGINE"] = "django.db.backends.postgresql_async"
 DATABASES["default"]["ENGINE"] = "django.db.backends.postgresql"
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 # SMS
 TWILIO_FROM = env.str("TWILIO_FROM")
 TWILIO_AUTH_TOKEN = env.str("TWILIO_AUTH_TOKEN")
 TWILIO_ACCOUNT_SID = env.str("TWILIO_ACCOUNT_SID")
-FROM_NUMBER = env.str("FROM_NUMBER")
 
 # Telegram
 TELEGRAM_API = env.str("TELEGRAM_API")
@@ -81,6 +88,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 ]
 
