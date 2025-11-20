@@ -40,9 +40,8 @@ DATABASES["default"]["ENGINE"] = "django.db.backends.postgresql"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # SMS
-TWILIO_FROM = env.str("TWILIO_FROM")
-TWILIO_AUTH_TOKEN = env.str("TWILIO_AUTH_TOKEN")
-TWILIO_ACCOUNT_SID = env.str("TWILIO_ACCOUNT_SID")
+API_ID = env.str("API_ID")
+SMS_FROM = env.str("SMS_FROM")
 
 # Telegram
 TELEGRAM_API = env.str("TELEGRAM_API")
@@ -145,9 +144,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
-    {
-        "NAME": "app.api.core.CustomPasswordValidator",
     },
 ]
 
