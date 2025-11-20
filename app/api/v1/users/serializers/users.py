@@ -14,9 +14,6 @@ class UserSerializer(serializers.ModelSerializer):
             "email",
             "telegram_username",
             "telegram_chat_id",
-            "notify_email",
-            "notify_sms",
-            "notify_telegram",
         ]
         extra_kwargs = {
             "password": {"write_only": True},
@@ -51,10 +48,6 @@ class UserCreateUpdateSerializer(serializers.ModelSerializer):
         write_only=True
     )
 
-    notify_email = serializers.BooleanField(required=False, default=True)
-    notify_sms = serializers.BooleanField(required=False, default=False)
-    notify_telegram = serializers.BooleanField(required=False, default=False)
-
     class Meta:
         model = User
         fields = [
@@ -64,9 +57,6 @@ class UserCreateUpdateSerializer(serializers.ModelSerializer):
             "email",
             "telegram_username",
             "telegram_chat_id",
-            "notify_email",
-            "notify_sms",
-            "notify_telegram",
         ]
 
     def update(self, instance: User, validated_data):

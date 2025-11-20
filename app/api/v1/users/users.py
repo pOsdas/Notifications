@@ -47,7 +47,6 @@ class ChangeUserView(generics.UpdateAPIView):
         return super().patch(request, *args, **kwargs)
 
 
-
 class DeleteUserView(generics.DestroyAPIView):
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
