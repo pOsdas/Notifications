@@ -1,0 +1,55 @@
+services:
+  backend: &django
+    build:
+      .
+    container_name: backend
+    command: bash -c "poetry run python manage.py collectstatic --no-input && poetry run python manage.py migrate && poetry run gunicorn app_project.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+    environment:
+      - DOCKER=True
+    volumes:
+      - static:/app/app_project/static/:rw
+    env_file:
+      - .env
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: postgres:16.3
+    container_name: db
+    volumes:
+      - pg_data_1:/var/lib/postgresql/data
+    env_file:
+      - .env
+    restart: always
+
+  celery-worker:
+    <<: *django
+    container_name: celery-worker
+    command: bash -c "poetry run celery -A celery_config:app worker -l info"
+
+  celery-beat:
+    <<: *django
+    container_name: celery-beat
+    command: bash -c "poetry run celery -A celery_config:app beat -l info"
+
+  telegram_bot:
+    <<: *django
+    container_name: telegram_bot
+    command: bash -c "poetry run python manage.py run_telegram_bot"
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  redis:
+    image: redis:6
+    container_name: notification_redis
+    env_file:
+      - .env
+    restart: always
+
+volumes:
+  pg_data:
+  pg_data_1:
+  static:
