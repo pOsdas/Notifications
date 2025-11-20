@@ -39,9 +39,8 @@ class Settings(BaseSettings):
     allowed_hosts: str
     celery_broker_url: str
 
-    twilio_from: str
-    twilio_auth_token: str
-    twilio_account_sid: str
+    api_id: str
+    sms_from: str
 
     telegram_api: str
     bot_token: str
