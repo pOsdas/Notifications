@@ -1,4 +1,1 @@
-__all__ = (
-    "User",
-)
-from .models import User
+default_app_config = 'app.apps.BackendAppConfig'
