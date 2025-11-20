@@ -23,5 +23,5 @@ celery -A celery_config:app worker -l info --pool=solo
 ---
 ### Telegram bot
 ```shell
-python manage.py run_telegram_bot
+poetry run python manage.py run_telegram_bot
 ```
