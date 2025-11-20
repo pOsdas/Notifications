@@ -25,13 +25,14 @@ async def start(update, context):
             return
 
         try:
-            user = await sync_to_async(User.objects.get)(id=user_id)
+
+            user = await sync_to_async(User.objects.get)(id=user_id)  # type: ignore
         except User.DoesNotExist:
             await update.message.reply_text("Пользователь не найден в базе")
             return
 
         user.telegram_chat_id = chat_id
-        await sync_to_async(user.save)(update_fields=['telegram_chat_id'])
+        await sync_to_async(user.save)(update_fields=['telegram_chat_id'])  # type: ignore
 
         await update.message.reply_text("Telegram подключен")
     except Exception as e:

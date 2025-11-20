@@ -46,6 +46,13 @@ class ChangeUserView(generics.UpdateAPIView):
         """
         return super().patch(request, *args, **kwargs)
 
+    @extend_schema(tags=['Users'])
+    def put(self, request, *args, **kwargs):
+        """
+        Полное обновление пользователя
+        """
+        return super().put(request, *args, **kwargs)
+
 
 class DeleteUserView(generics.DestroyAPIView):
     queryset = User.objects.all()
