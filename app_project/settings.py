@@ -21,6 +21,7 @@ DOCKER = env.bool("DOCKER", False)
 SECRET_KEY = pydantic_settings.secret_key
 DEBUG = pydantic_settings.debug
 ALLOWED_HOSTS = env.str("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+CHAR_CNN_MODEL_PREFIX = pydantic_settings.char_cnn_model_prefix
 
 # Настройка базы данных
 DATABASES = {
@@ -69,6 +70,7 @@ CELERY_RESULT_BACKEND = env.str("CELERY_BROKER_URL")  # f"redis://{_REDIS_HOST}:
 
 # Установленные приложения
 INSTALLED_APPS = [
+    'app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,7 +80,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'drf_spectacular',
     'rest_framework',
-    'app',
 ]
 
 MIDDLEWARE = [

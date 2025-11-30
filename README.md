@@ -25,3 +25,7 @@ celery -A celery_config:app worker -l info --pool=solo
 ```shell
 poetry run python manage.py run_telegram_bot
 ```
+---
+> В проекте реализована валидация номера телефона с помощью CNN модели, но
+> автор прекрасно понимает, что легче использовать регулярные выражения. 
+> CNN модель только для само-обучения 

@@ -38,6 +38,7 @@ class Settings(BaseSettings):
     secret_key: str
     allowed_hosts: str
     celery_broker_url: str
+    char_cnn_model_prefix: str
 
     api_id: str
     sms_from: str
